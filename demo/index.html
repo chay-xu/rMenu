@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html style="">
+<head>
+	<title>autocomplete</title>
+	<link rel="stylesheet" type="text/css" href="../src/rMenu.css">
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		a{
+			font-size: 12px;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="right-click-top" class="right-click" data-flag="0" style="position: absolute; top: 0px; left: 0;height: 35px; background-color: #F5F2F0;">right click me(top)</div>
+	<div id="left-click" data-flag="0" style="margin: 45px 0;height: 35px; background-color: #F5F2F0;">left click me</div>
+
+	<div id="right-click-bottom" class="right-click" data-flag="0" style="position: absolute; bottom: -5px; left: 0;height: 35px; background-color: #F5F2F0;">right click me(bottom)</div>
+
+	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="fastpl-min.js" ></script>
+	<script type="text/javascript" src="../src/rMenu.js" id="prama-s"></script>
+	<script type="text/javascript">
+		$( document ).ready(function(){
+			rMenu.tools = {
+				add: function( $el ){
+		    		alert('添加成功！')
+		    		$el.attr('data-flag', 1)
+				},
+				del: function( $el ){
+		    		alert('删除成功！')
+		    		$el.attr('data-flag', 0)
+				},
+				open: function(url){
+					window.open('#')
+				}
+			}
+			// 左键
+			rMenu({
+				// container: '#company-list',
+				target: '#left-click',
+				trigger: 'left',
+				bindFn: function( $el ){
+					var falg = $el.attr('data-flag'),
+						data = [
+							{
+								text: '加入自选股',
+								fn: 'add'
+							},
+							{
+								text: '删除自选股',
+								fn: 'del'
+							}
+						];
+
+					if( falg === undefined ) return;
+					// 加入还是删除
+					if(falg == 0){
+						data[1].locked = true;
+					}else{
+						data[0].locked = true;
+					}
+					return data
+				}
+			});
+			// 右键 
+			rMenu({
+				// container: '#company-list',
+				target: '.right-click',
+				data: [
+					{
+						text: '全选',
+						fn: 'all'
+					},
+					{
+						text: '复制',
+						fn: 'copy',
+						locked: true
+					},
+					{
+						line: true
+					},
+					{
+						text: '加入自选股',
+						sub: [
+							{
+								text: '加入自选股',
+								fn: 'add',
+							},
+							{
+								text: '删除自选股',
+								fn: 'del',
+								locked: true
+							},
+							{
+								line: true
+							},
+							{
+								text: '全部删除',
+								fn: 'all'
+							},
+						]
+					},
+					{
+						text: '删除自选股',
+						fn: 'del',
+						sub: [
+							{
+								text: '加入自选股',
+								fn: 'add',
+							}
+						]
+					},
+					{
+						line: true
+					},
+					{
+						text: '新窗口打开',
+						fn: 'open'
+					}
+				]
+			});
+		})
+	</script>
+</body>
+</html>

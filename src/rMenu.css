@@ -1,0 +1,74 @@
+/**
+ * @file contextMenu css style
+ * @author xucaiyu
+ * @email 569455187@qq.com
+ * @version 1.0.0
+ * @date 2015-05-21
+ * @license MIT License 
+ */
+/*rmenu*/
+ol, ul, li {
+	margin:0;
+    padding:0;
+    list-style-type: none;
+}
+.x-menu{
+	position: absolute;
+	padding: 3px 0;
+	border: 1px solid #bababa;
+	background-color: #fff;
+	box-shadow: 1px 1px 1px #ccc;
+}
+.x-menu-line{
+	padding: 0;
+	margin: 3px 0;
+	background-color: #ccc;
+	height: 1px;
+	overflow: hidden;
+}
+.x-menu-item, .x-menu-locked{
+	position: relative;
+}
+.x-menu-text{
+	padding: 0 20px;
+	color: #000;
+	line-height: 22px;
+	height: 22px;
+	display: block;
+	white-space: nowrap;
+}
+.x-menu-text i{
+	width: 0;
+	height: 0;
+	border-width: 4px 0 4px 4px;
+	border-color: #fff #fff #fff #666;
+	border-style: solid;
+	position: absolute;
+	top: 7px;
+	right: 5px;
+}
+.x-menu-locked .x-menu-text{
+	color: #7b7b7b;
+	cursor: default;
+}
+.x-menu-text-hover{
+	background-color: #4281f4;
+	color: #fff;
+}
+.x-menu-text-hover i{
+	border-color: #4281f4 #4281f4 #4281f4 #fff;
+}
+.x-menu-sub{
+	display: none;
+	left: 100%;
+	top: -3px;
+	/*margin-left: -3px;*/
+}
+.x-menu-sub:after{
+	border-width: 0 5px 10px 5px;
+	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FF3545 rgba(0, 0, 0, 0);
+	border-style: solid;
+	height: 0;
+	width: 0;
+	overflow: hidden;
+}
