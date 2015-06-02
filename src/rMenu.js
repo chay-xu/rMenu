@@ -6,6 +6,15 @@
  * @date 2015-05-21
  * @license MIT License 
  */
+/* data
+ *{
+ *   text: {string},
+ *   fn: {string},
+ *   locked: {boolean},
+ *   sub: {array},
+ *   icon: {string}
+ *}
+ */
 // 右键菜单插件
 (function(){
     var Defaults = {
@@ -15,10 +24,16 @@
             data: [],
             bindFn: function(){},
             tools: {},
-            tmpl: '{{if data.line }}<li class="x-menu-item"><div class="x-menu-line"></div></li>{{else}}'
-            + '<li class="{{if data.locked }}x-menu-locked{{else}}x-menu-item{{/if}}" data-fn="{{if data.fn }}${data.fn}{{/if}}">'
-            + '<a class="x-menu-text" href="javascript:;">${data.text}{{if data.sub }}<i></i>{{/if}}</a>'
-            + '</li>{{/if}}'
+            engines: function( tmpl, data ){
+                return fasTpl(tmpl, data)
+            },
+            tmpl: '{{if data.line}}<div class="x-menu-diff"></div>{{else}}'
+            + '<div class="{{if data.locked }}x-menu-locked{{else}}x-menu-item{{/if}}" data-fn="{{if data.fn }}${data.fn}{{/if}}">'
+            + '<a class="x-menu-text" href="javascript:;">'
+            +   '{{if data.icon}}<img src="${data.icon}" >{{else}}<span class="x-menu-empty"></span>{{/if}}'
+            +   '${data.text}{{if data.sub }}<i></i>{{/if}}'
+            + '</a>'
+            + '</div>{{/if}}'
         };
 
     rMenu.tools = {}
@@ -29,7 +44,7 @@
             $parentMenu = null,
             $target = null,
             trigger = opts.trigger == 'right' ? 2 : 0;
-
+        // 添加方法
         $.extend(rMenu.tools, opts.tools)
 
         $( opts.container ).delegate(opts.target, 'mouseup contextmenu', function(e){
@@ -38,10 +53,11 @@
                 data;
 
             if(type == 'mouseup'){
+                if( e.button == 1 ) trigger = 1;
                 // 右键
                 if(e.button == trigger){
                     $target = $em;
-                    // 限制只有一个菜单
+                    // 限制只有一个菜单 only one
                     $parentMenu && destroyMenu();
                     // 回调函数
                     data = opts.bindFn( $em );
@@ -56,6 +72,7 @@
 
                     $parentMenu.css({
                         // 'z-index': '99',
+                        width: $parentMenu.width(),
                         top: position.top,
                         left: position.left
                     })
@@ -81,12 +98,12 @@
         })
 
         function createMenu(menu, tmpl, className){
-            var $warp = $('<ul class="x-menu '+ className +'"></ul>'),
+            var $warp = $('<div class="x-menu '+ className +'"></div>'),
                 html, $li, $menu;
 
             $.each(menu, function(i, o){
                 // 模板
-                html = fasTpl( tmpl, {data: o } );
+                html = opts['engines']( tmpl, {data: o } );
                 $li = $( html );
                 // 子菜单
                 if(o[ 'sub' ]){
@@ -126,6 +143,7 @@
             }
 
             return {
+                width: width,
                 left: l,
                 top: t
             }
@@ -133,14 +151,14 @@
 
         function menuEvent( $menu ){
             var $focus = null;
-            $menu.delegate('li', 'mouseenter mouseleave mousedown mouseup', function(e){
+            $menu.delegate('div', 'mouseenter mouseleave mousedown mouseup', function(e){
                 var $me = $( this ),
                     type = e.type,
                     fn = $me.attr('data-fn'),
                     className = $me.attr('class'),
                     $subMenu = $me.children('.x-menu-sub');
 
-                if( className == 'x-menu-locked' ) return false;
+                if( className != 'x-menu-item' ) return false;
 
                 // 显示子菜单
                 if( type == 'mouseenter' ){
