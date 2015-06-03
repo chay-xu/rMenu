@@ -53,13 +53,7 @@
                 data;
 
             if(type == 'mouseup'){
-                // if( opts.trigger == 'right' ){
-                //     e.button==2||e.button==3
-                // }else{
 
-                // }
-                // if( e.button == 1 ) trigger = 1;
-                console.log(trigger[e.button])
                 // 左右键
                 if(trigger[e.button]){
                     $target = $em;
