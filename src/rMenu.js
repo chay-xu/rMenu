@@ -43,7 +43,7 @@
             timer = null,
             $parentMenu = null,
             $target = null,
-            trigger = opts.trigger == 'right' ? 2 : 0;
+            trigger = opts.trigger == 'right' ? {2: true} : {0: true, 1: true};
         // 添加方法
         $.extend(rMenu.tools, opts.tools)
 
@@ -53,9 +53,15 @@
                 data;
 
             if(type == 'mouseup'){
-                if( e.button == 1 ) trigger = 1;
-                // 右键
-                if(e.button == trigger){
+                // if( opts.trigger == 'right' ){
+                //     e.button==2||e.button==3
+                // }else{
+
+                // }
+                // if( e.button == 1 ) trigger = 1;
+                console.log(trigger[e.button])
+                // 左右键
+                if(trigger[e.button]){
                     $target = $em;
                     // 限制只有一个菜单 only one
                     $parentMenu && destroyMenu();
