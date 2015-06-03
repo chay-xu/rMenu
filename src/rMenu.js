@@ -122,8 +122,8 @@
             var offset = $el.offset(),
                 width = $el.outerWidth(),
                 height = $el.outerHeight(),
-                winWidth = $(window).width(),
-                winHeight = $(window).height(),
+                winWidth = $(window).width() + $(window).scrollLeft(),
+                winHeight = $(window).height() + $(window).scrollTop(),
                 left = l ? l : offset.left,
                 top = t ? t : offset.top;
 
