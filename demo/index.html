@@ -17,7 +17,9 @@
 	</style>
 </head>
 <body>
-	<div id="position" class="position-click" data-flag="0" style="position: absolute; top: 0px; left: 180px;height: 35px; background-color: #F5F2F0;">position</div>
+	<div id="position-left" class="position-left" style="position: absolute; top: 0px; left: 180px;height: 35px; background-color: #F5F2F0;">align left</div>
+	<div id="position-middle" class="position-middle" style="position: absolute; top: 0px; left: 300px;height: 35px; background-color: #F5F2F0;">align middle</div>
+	<div id="position-right" class="position-right" style="position: absolute; top: 0px; left: 440px;height: 35px; background-color: #F5F2F0;">align right</div>
 
 	<div id="left-click" data-flag="0" style="margin-top: 45px;height: 35px; background-color: #F5F2F0;">left click me</div>
 
@@ -43,6 +45,61 @@
 					window.open('#')
 				}
 			}
+			var data = [
+					{
+						text: '全选',
+						fn: 'all'
+					},
+					{
+						text: '复制',
+						fn: 'copy',
+						locked: true
+					},
+					{
+						line: true
+					},
+					{
+						text: '加入自选股',
+						icon: 'baidu.gif',
+						sub: [
+							{
+								text: '加入自选股',
+								fn: 'add',
+								icon: 'baidu.gif'
+							},
+							{
+								text: '删除自选股',
+								fn: 'del',
+								locked: true
+							},
+							{
+								line: true
+							},
+							{
+								text: '全部删除',
+								fn: 'all'
+							}
+						]
+					},
+					{
+						text: '删除自选股',
+						fn: 'del',
+						sub: [
+							{
+								text: '加入自选股',
+								fn: 'add'
+							}
+						]
+					},
+					{
+						line: true
+					},
+					{
+						text: '新窗口打开',
+						fn: 'open',
+						icon: 'baidu.gif'
+					}
+				]
 			// 左键
 			rMenu({
 				// container: '#company-list',
@@ -74,124 +131,33 @@
 			// 定位菜单 
 			rMenu({
 				// container: '#company-list',
-				target: '.position-click',
-				position: true,
-				data: [
-					{
-						text: '全选',
-						fn: 'all'
-					},
-					{
-						text: '复制',
-						fn: 'copy',
-						locked: true
-					},
-					{
-						line: true
-					},
-					{
-						text: '加入自选股',
-						icon: 'baidu.gif',
-						sub: [
-							{
-								text: '加入自选股',
-								fn: 'add',
-								icon: 'baidu.gif'
-							},
-							{
-								text: '删除自选股',
-								fn: 'del',
-								locked: true
-							},
-							{
-								line: true
-							},
-							{
-								text: '全部删除',
-								fn: 'all'
-							}
-						]
-					},
-					{
-						text: '删除自选股',
-						fn: 'del',
-						sub: [
-							{
-								text: '加入自选股',
-								fn: 'add'
-							}
-						]
-					},
-					{
-						line: true
-					},
-					{
-						text: '新窗口打开',
-						fn: 'open',
-						icon: 'baidu.gif'
-					}
-				]
+				target: '#position-left',
+				align: 'left',
+				trigger: 'left',
+				data: data
+			});
+			// 定位菜单 
+			rMenu({
+				// container: '#company-list',
+				target: '#position-middle',
+				align: 'middle',
+				trigger: 'left',
+				data: data
+			});
+			// 定位菜单 
+			rMenu({
+				// container: '#company-list',
+				target: '#position-right',
+				align: 'right',
+				trigger: 'left',
+				data: data
 			});
 
 			// 右键 
 			rMenu({
 				// container: '#company-list',
 				target: '.right-click',
-				data: [
-					{
-						text: '全选',
-						fn: 'all'
-					},
-					{
-						text: '复制',
-						fn: 'copy',
-						locked: true
-					},
-					{
-						line: true
-					},
-					{
-						text: '加入自选股',
-						icon: 'baidu.gif',
-						sub: [
-							{
-								text: '加入自选股',
-								fn: 'add',
-								icon: 'baidu.gif'
-							},
-							{
-								text: '删除自选股',
-								fn: 'del',
-								locked: true
-							},
-							{
-								line: true
-							},
-							{
-								text: '全部删除',
-								fn: 'all'
-							}
-						]
-					},
-					{
-						text: '删除自选股',
-						fn: 'del',
-						sub: [
-							{
-								text: '加入自选股',
-								fn: 'add'
-							}
-						]
-					},
-					{
-						line: true
-					},
-					{
-						text: '新窗口打开',
-						fn: 'open',
-						icon: 'baidu.gif'
-					}
-				]
+				data: data
 			});
 		})
 	</script>

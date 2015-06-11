@@ -21,6 +21,7 @@
             container: 'body',
             target: '',
             trigger: 'right',
+            align: false,
             data: [],
             bindFn: function(){},
             tools: {},
@@ -50,7 +51,9 @@
         $( opts.container ).delegate(opts.target, 'mouseup contextmenu', function(e){
             var type = e.type,
                 $em = $(this),
-                data;
+                align = opts.align,
+                data, position,
+                top, left;
 
             if(type == 'mouseup'){
 
@@ -68,7 +71,25 @@
                     $parentMenu = createMenu( data, opts.tmpl, '');
                     $('body').append( $parentMenu )
 
-                    var position = rangePosition( $parentMenu, e.pageX, e.pageY );
+                    // 菜单位置
+                    if( align ){
+                        // align
+                        switch( align ){
+                            case 'left':
+                                left = $em.offset().left
+                                break;
+                            case 'right':
+                                left = $em.offset().left + $em.outerWidth() - $parentMenu.outerWidth()
+                                break;
+                            default:
+                                left = $em.offset().left + ($em.outerWidth() - $parentMenu.outerWidth())/2
+                        }
+                        top = $em.offset().top+ $em.height();
+                        position = rangePosition( $parentMenu, left, top );
+                    }else{
+                        // mouse
+                        position = rangePosition( $parentMenu, e.pageX, e.pageY );
+                    }
 
                     $parentMenu.css({
                         // 'z-index': '99',
@@ -80,9 +101,9 @@
                     // 单击其他范围菜单隐藏
                     $( document ).bind('mousedown', destroyMenu)
                     // 滚动消失
-                    // $( document ).bind('scroll', destroyMenu)
+                    $( document ).bind('scroll', destroyMenu)
                     // 失去焦点消失
-                    // $( window ).bind('blur', destroyMenu)
+                    $( window ).bind('blur', destroyMenu)
 
                     // 菜单右键禁止
                     $parentMenu.bind('contextmenu', function(e){
@@ -90,6 +111,7 @@
                     })
 
                     menuEvent( $parentMenu )
+                    position = null;
                 }
                 return false;
             }else{
