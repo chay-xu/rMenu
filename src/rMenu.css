@@ -54,7 +54,7 @@ ol, ul, li {
 	border-color: #fff #fff #fff #666;
 	border-style: solid;
 	position: absolute;
-	top: 7px;
+	top: 8px;
 	right: 5px;
 }
 .x-menu-locked .x-menu-text{
@@ -72,13 +72,12 @@ ol, ul, li {
 	display: none;
 	left: 100%;
 	top: -3px;
-	/*margin-left: -3px;*/
 }
-.x-menu-sub:after{
+/*.x-menu-sub:after{
 	border-width: 0 5px 10px 5px;
 	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FF3545 rgba(0, 0, 0, 0);
 	border-style: solid;
 	height: 0;
 	width: 0;
 	overflow: hidden;
-}
+}*/

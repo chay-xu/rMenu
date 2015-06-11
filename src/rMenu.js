@@ -80,9 +80,9 @@
                     // 单击其他范围菜单隐藏
                     $( document ).bind('mousedown', destroyMenu)
                     // 滚动消失
-                    $( document ).bind('scroll', destroyMenu)
+                    // $( document ).bind('scroll', destroyMenu)
                     // 失去焦点消失
-                    $( window ).bind('blur', destroyMenu)
+                    // $( window ).bind('blur', destroyMenu)
 
                     // 菜单右键禁止
                     $parentMenu.bind('contextmenu', function(e){
